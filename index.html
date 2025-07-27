@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Camera Permission Example</title>
+</head>
+<body>
+  <button id="camera-btn">Ask for Camera Access</button>
+  <video id="video" width="320" height="240" autoplay style="display:none;"></video>
+  <p id="status"></p>
+
+  <script>
+    const btn = document.getElementById('camera-btn');
+    const video = document.getElementById('video');
+    const status = document.getElementById('status');
+
+    btn.onclick = async function() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        video.style.display = 'block';
+        status.textContent = "Camera access granted!";
+      } catch (err) {
+        status.textContent = "Camera access denied or not available.";
+      }
+    };
+  </script>
+</body>
+</html>
